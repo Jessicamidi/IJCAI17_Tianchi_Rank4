@@ -6,6 +6,7 @@ Ranking list: Rank4
 
 Team member: 
 Zhongjie Li, Department of Thermal Engineering, Tsinghua University, lizhongjie1989@163.com
+
 Yichen Yao, Department of Engineering Mechanics, Tsinghua University, yaoyichen@aliyun.com
 
 ----------
@@ -57,17 +58,17 @@ The data cleaning process includes three parts:  1. Cleaning by rules; 2. Cleani
 
 - The raw data contains large amount of purchase within a certain hour for a single user. For instance, the purchase volume of userID 9594359 in the January 30, 2016 in the shopID 878 reaches 209 times. For such situation, the following equation is adopted to eliminate the abnormal consumption.
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png" width="140" height="140" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png"/></div>
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400"/></div>
 
 - There is a certain amount of start-up time for the newly settled merchants on Koubei platform. The sales interruption phenomenon is also encountered for some merchants, as shown below for shopID 1072. For these situations, data within the opening period (within 7 days) is not used for training, and 1 day before and after the sales interruption period is not used for training.
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/w0w8yda1orkpiehi26veuikz/image_1bg3k1ncn1t37km5qiq19lm1brnm.png" width="400" height="400" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/w0w8yda1orkpiehi26veuikz/image_1bg3k1ncn1t37km5qiq19lm1brnm.png" width="400" height="400"/></div>
 
 - The sales volume is limited by μ ± 2σ in the past 14 days, where μ is the mean of sales volume and σ is the root mean square, as shown below.
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/wgciv2860j3z1pahbhf7jd59/image_1bg3k26oqng2is11dflrddpuo13.png" width="400" height="400" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/wgciv2860j3z1pahbhf7jd59/image_1bg3k26oqng2is11dflrddpuo13.png" width="400" height="400"/></div>
 
 
 #### 2.2.2 Cleaning by pre-training
@@ -122,7 +123,7 @@ GBDT: the retention rate for the first round of training is 90%.
 - As the method looks for historically similar (over the past three weeks of correlation) sales curve as a future prediction, it is essentially a combination of the mean value model and KNN method.
 - Confidence is the fusion coefficient, only when the correlation coefficient of the three weeks or the correlation coefficient of the latter two weeks is greater than 0.7. The maximum ratio of the mean model is 0.75. The fusion coefficient is calculated as follows:
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/gxdn8nohm2qsvayrgri4hbh3/eq1png.png" width="300" height="60" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/gxdn8nohm2qsvayrgri4hbh3/eq1png.png" width="300" height="60"/></div>
 
 
 ### Double 11 sales volume correction model
@@ -130,7 +131,7 @@ GBDT: the retention rate for the first round of training is 90%.
  - Features: only include merchant information, including average ratio of View and Pay, average opening and closing time, business hour, date of initial opening, non-holiday sales median, holiday sales median, holiday / non-holiday sales ratio; business category, per capita consumption, rating, comments, store grade
 Double 11 sales increase: the weighted sales ratio between the sales volume on Double 11 Day V1111 in the previous year (2015) and the corresponding days two weeks before and two weeks after Double 11 Day V1028, V1104, V1118, V1125. The weight coefficient were 0.15, 0.35, 0.35, 0.15.
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/5iyvh7olsr32dncmn49vuilo/eq2.png" width="480" height="75" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/5iyvh7olsr32dncmn49vuilo/eq2.png"/></div>
  
 -  Training methods: we use xgboost model for training. In order to prevent over-fitting, the parameter settings are more conservative, the maximum depth is 2, and a larger regular term is added. The main settings were as follows: max_depth = 2, learning_rate = 0.01, n_estimators = 500, reg_alpha = 10, gamma = 1
 
