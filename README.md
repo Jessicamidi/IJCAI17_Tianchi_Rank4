@@ -31,7 +31,7 @@ lizhongjie1989@163.com,  yaoyichen@aliyun.com
  - 天气数据来源：https://www.wunderground.com， 
 提供了世界各地在机场附近检测到的气象信息，包含气温，露点，湿度，气压，能见度，风速，瞬时风速，降水量，天气状况等信息。历史气象信息的采样间隔为30分钟。测试集首日，北京首都国际机场2016年11月1日气象条件的时间序列分布如下。
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/ukcrtk5rvuqzvj7sg1qbblky/histGraphAll.gif" width="650" height="150" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/ukcrtk5rvuqzvj7sg1qbblky/histGraphAll.gif"/></div>
 
  - 日降水量：采样间隔为天，爬取程序为Weather_underground_day.py，生成的降水量表格为 PRECIP.csv
  - 气象条件时间序列：采样间隔为30分钟，爬取程序为 Weather_underground_hour.py，生成的气象条件时序表格为 WEATHER_raw.csv，
@@ -52,17 +52,17 @@ SSD=(1.818t+18.18)(0.88+0.002f)+(t-32)/(45-t)-3.2v+18.2
 
 - 原始数据中，存在单用户某小时内大量购买的现象，如userID为9594359用户在2016年1月30日在shopID为878的商家累计购买了209次。针对此类现象，对于单个用户单小时内的购买数量x，采用以下公式处理消除异常消费：
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png" width="140" height="140" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png"/></div>
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400"/></div>
 
 - 商家初始入驻口碑平台存在一定的启动时间，同时销售过程中会在销量中断的现象，如下图shopID为1072的商家所示。针对此类现象，开业前7天数据不用于训练集，销量间断前后3天数据不用于训练集。
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/w0w8yda1orkpiehi26veuikz/image_1bg3k1ncn1t37km5qiq19lm1brnm.png" width="400" height="400" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/w0w8yda1orkpiehi26veuikz/image_1bg3k1ncn1t37km5qiq19lm1brnm.png" width="400" height="400"/></div>
 
 - 销量以历史过去14天销量的μ±2σ为限制，其中μ为均值，σ为均方根，以排除异常的销量数。
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/wgciv2860j3z1pahbhf7jd59/image_1bg3k26oqng2is11dflrddpuo13.png" width="400" height="400" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/wgciv2860j3z1pahbhf7jd59/image_1bg3k26oqng2is11dflrddpuo13.png" width="400" height="400"/></div>
 
 
 #### 2.2.2 模型预训练清除：
@@ -116,14 +116,14 @@ GBDT: 第一次训练样本保留量为90%。
 - 方法：过去21天的按工作日平均，得到按工作日平均的均值销量。通过过去三周按周统计的销量中位数及平均值，做线性拟合得到销量增量。将历史均值销量叠加销量增量即得到未来2周预测销量。
 - 由于方法本质上寻找历史上相似的(过去三周相关度较高)销量曲线作为未来预测，本质上为均值模型与KNN方法的结合。
 - 置信度即为融合系数，仅当三周相关系数或后两周相关系数的最小值大于0.7时有效。均值模型的融合比例最大为0.75。融合系数计算方法为：
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/gxdn8nohm2qsvayrgri4hbh3/eq1png.png" width="300" height="60" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/gxdn8nohm2qsvayrgri4hbh3/eq1png.png" width="300" height="60"/></div>
 
 
 ### 双11销量修正模型
 - 模型概述：需要预测的时间段（11月1日到11月14日范围内）包含双11节日。从诸多商家的销量图上能明显看到在双11当天存在较大波动，可能的原因为网商促销对实体店的冲击，双11作为光棍节对于餐饮业的促进。然而仅有约1/3的商家存在2015年双11的销量记录，需要通过这部分商家去年双11信息，预测其余商家双11销量表现。
 - 特征描述：仅包含商家特征，包含平均View/Pay比值，平均每天开店时间，关店时间，开店总时长；首次营业日期，非节假日销量中位数，节假日销量中位数，节假日/非节假日销量比值；商家类别，人均消费，评分，评论数，门店等级。
 - 双11销量增量，计算方法为上一年(2015年)11-11当天销量V1111与其前后两周对应工作日V1028，V1104，V1118，V1125的加权销量的比值,权重系数分别为$0.15,0.35,0.35,0.15$.
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/5iyvh7olsr32dncmn49vuilo/eq2.png" width="480" height="75" alt="Item-based filtering" /></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/5iyvh7olsr32dncmn49vuilo/eq2.png" width="480" height="75"/></div>
  
 - 训练方法: 采用xgboost单模型训练，由于双11当天对应的工作日不同，2015年数据并不能很好反映出2016年双11节假日情况，且超市便利店类商店存在大量的数据缺失。为防止过拟合，参数设置均较为保守，最大深度为2，且加了较大的$L_1$正则项，具体如下: max_depth = 2, learning_rate=0.01, n_estimators=500, reg_alpha=10, gamma = 1
 
