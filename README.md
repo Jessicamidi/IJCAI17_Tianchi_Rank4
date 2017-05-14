@@ -1,5 +1,6 @@
 ![图片3.png-376.2kB][1]
-#<center> IJCAI17 口碑商家客流量预测赛 Flamingo队伍解题方案 </center>
+<center> IJCAI17 口碑商家客流量预测赛 Flamingo队伍解题方案 </center>
+
 IJCAI17_Flamingo_Rank4
 李中杰，姚易辰
 清华大学热能系，清华大学工程力学系
@@ -15,7 +16,7 @@ lizhongjie1989@163.com,  yaoyichen@aliyun.com
 - 赛题目标：通过阿里支付宝口碑平台2000个商户从2015.07.01到2016.10.31的商家数据，用户在支付宝端的支付和浏览日志，预测商家在未来14天（2016.11.01-2016.11.14）的客户流量。
 - 测评函数：
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/k6olhzfz2si5p3n57d5w306x/costF.png" width="650" height="150" alt="Item-based filtering" /></div>
-其中$p_{it}$为商家$i$在日期$t$销量预测值，$r_{it}$为其真实值。
+其中pit为商家i在日期t销量预测值，rit为其真实值。
 
 - 本次比赛鼓励参赛选手使用外部数据，如天气数据等。
 
@@ -23,11 +24,15 @@ lizhongjie1989@163.com,  yaoyichen@aliyun.com
 
 
 ## 2 外部数据及数据清洗
-###2.1外部数据 
+### 2.1外部数据 
 外部数据分为机场天气数据和节假日信息两部分，均存储在additional 文件夹下，具体如下：
-###2.1.1 天气数据
+### 2.1.1 天气数据
 
- - 天气数据来源：https://www.wunderground.com，其提供了世界各地在机场附近检测到的气象信息，包含气温，露点，湿度，气压，能见度，风速，瞬时风速，降水量，天气状况等信息。历史气象信息的采样间隔为30分钟。测试集首日，北京首都国际机场2016年11月1日气象条件的时间序列分布如下。![histGraphAll.gif-12.8kB][2]
+ - 天气数据来源：https://www.wunderground.com， 
+提供了世界各地在机场附近检测到的气象信息，包含气温，露点，湿度，气压，能见度，风速，瞬时风速，降水量，天气状况等信息。历史气象信息的采样间隔为30分钟。测试集首日，北京首都国际机场2016年11月1日气象条件的时间序列分布如下。
+
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/ukcrtk5rvuqzvj7sg1qbblky/histGraphAll.gif" width="650" height="150" alt="Item-based filtering" /></div>
+
  - 日降水量：采样间隔为天，爬取程序为Weather_underground_day.py，生成的降水量表格为 PRECIP.csv
  - 气象条件时间序列：采样间隔为30分钟，爬取程序为 Weather_underground_hour.py，生成的气象条件时序表格为 WEATHER_raw.csv，
  - 降水指数和天晴指数：天气状况给出天气条件纷繁复杂，通过经验将天气状况列简单转换为降水指数和天晴指数两个指标。分别为feature/WEATHER_CON_LEVEL.csv 中RAIN_IND及CLEAR_IND对应列。
@@ -36,26 +41,31 @@ SSD=(1.818t+18.18)(0.88+0.002f)+(t-32)/(45-t)-3.2v+18.2
 其中：温度t，湿度f，风速v
  - 城市天气确定：通过城市经纬度计算城市到各机场距离，城市对应天气采用与之最近的机场信息。
 
-###2.1.2 节假日信息
+### 2.1.2 节假日信息
 节假日信息 HOLI.csv，将日期类型简单分为三个类别，其中工作日标签为0，周末标签为1，假期标签为2。表格来源为比赛官方论坛。
 
 
-### 2.2数据清洗
+### 2.2 数据清洗
 数据清洗包含三部分，通过规则清除，通过模型预训练清除及仅保留销量统计信息。
-####2.2.1规则清除
+
+#### 2.2.1规则清除
 
 - 原始数据中，存在单用户某小时内大量购买的现象，如userID为9594359用户在2016年1月30日在shopID为878的商家累计购买了209次。针对此类现象，对于单个用户单小时内的购买数量x，采用以下公式处理消除异常消费：
-![image_1bg3ktg7ob7s1ggq1omf1f098et9.png-1.8kB][4]
 
-![image_1bg3jvnk3d9gbik13fl196j1jb19.png-36.3kB][5]
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png" width="140" height="140" alt="Item-based filtering" /></div>
+
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400" alt="Item-based filtering" /></div>
 
 - 商家初始入驻口碑平台存在一定的启动时间，同时销售过程中会在销量中断的现象，如下图shopID为1072的商家所示。针对此类现象，开业前7天数据不用于训练集，销量间断前后3天数据不用于训练集。
-![image_1bg3k1ncn1t37km5qiq19lm1brnm.png-37.4kB][6]
+
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/w0w8yda1orkpiehi26veuikz/image_1bg3k1ncn1t37km5qiq19lm1brnm.png" width="400" height="400" alt="Item-based filtering" /></div>
+
 - 销量以历史过去14天销量的μ±2σ为限制，其中μ为均值，σ为均方根，以排除异常的销量数。
-![image_1bg3k26oqng2is11dflrddpuo13.png-45.5kB][7]
+
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/wgciv2860j3z1pahbhf7jd59/image_1bg3k26oqng2is11dflrddpuo13.png" width="400" height="400" alt="Item-based filtering" /></div>
 
 
-####2.2.2模型预训练清除：
+#### 2.2.2 模型预训练清除：
 详见第三部分。商家日销量，可能存在一些难以预计的大幅波动，如促销，商家停业等。对于这些规则难以清除的异常值，采用预训练的方式清除。模型训练中首先采用欠拟合的算法模型预训练，并清除残差最大的10%(xgboost1,GBDT)和25%(xgboost2)的样本。
 
 ### 2.3 仅保留销量统计信息：
@@ -68,8 +78,9 @@ SSD=(1.818t+18.18)(0.88+0.002f)+(t-32)/(45-t)-3.2v+18.2
 ![pipeline.JPG-84.2kB][8]
 我们团队解题方案的整体架构如上图所示，最终销量预测结果由未来14天常规销量预测及双11修正系数预测两步两部分组成。通过双11修正系数，分别对于2016-11-11，2016-11-12，2016-11-13三天的销量按照1.0，0.2，0.1倍的系数作乘法修正。双11修正部分训练采用xgboost单模型，特征为商家特征信息，标签为上一年（2015年）双11当天的销量增量百分比。常规销量预测部分，采用基本模型有4套，分别为2套xgboost模型(特征处理及数据清洗程度不同)，GBDT模型和均值模型。对于模型训练的具体说明如下：
 
-###常规销量预测模型
-####特征与标签
+### 常规销量预测模型
+
+#### 特征与标签
 
 
 |    特征与标签	   |   说明    | 
@@ -80,7 +91,7 @@ SSD=(1.818t+18.18)(0.88+0.002f)+(t-32)/(45-t)-3.2v+18.2
 |商家特征|	平均View/Pay比值，平均每天开店时间，关店时间，开店总时长；首次营业日期，非节假日销量中位数，节假日销量中位数，节假日/非节假日销量比值；商家类别，人均消费，评分，评论数，门店等级| 
 |标签	|未来14天日销量|
 
-####训练方式
+#### 训练方式
 - 采用滑窗对于2000个商家日销量的时间序列生成481143条有效训练样本，清除间断前后及异常值后保留468535条样本。
 + 采用2次训练的方法，第一次采用最大深度为3欠拟合模型进一步清洗脏数据。采用了xgboost与sklearn的GBDT模型训练，具体参数如下：
 XGBoost-Round_1: 日销量仅作log处理，预训练后样本保留量为90%。
@@ -98,7 +109,7 @@ GBDT: 第一次训练样本保留量为90%。
 |Round_2|	lad	|5|	0.1	|500|	0.95|
 
 
-###历史均值模型
+### 历史均值模型
 
 - 输入:过去21天的历史销量，过去三周的销量相关度矩阵。
 - 输出：未来2周的销量及其对应在模型融合中置信度。
@@ -108,7 +119,7 @@ GBDT: 第一次训练样本保留量为90%。
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/gxdn8nohm2qsvayrgri4hbh3/eq1png.png" width="300" height="60" alt="Item-based filtering" /></div>
 
 
-###双11销量修正模型
+### 双11销量修正模型
 - 模型概述：需要预测的时间段（11月1日到11月14日范围内）包含双11节日。从诸多商家的销量图上能明显看到在双11当天存在较大波动，可能的原因为网商促销对实体店的冲击，双11作为光棍节对于餐饮业的促进。然而仅有约1/3的商家存在2015年双11的销量记录，需要通过这部分商家去年双11信息，预测其余商家双11销量表现。
 - 特征描述：仅包含商家特征，包含平均View/Pay比值，平均每天开店时间，关店时间，开店总时长；首次营业日期，非节假日销量中位数，节假日销量中位数，节假日/非节假日销量比值；商家类别，人均消费，评分，评论数，门店等级。
 - 双11销量增量，计算方法为上一年(2015年)11-11当天销量V1111与其前后两周对应工作日V1028，V1104，V1118，V1125的加权销量的比值,权重系数分别为$0.15,0.35,0.35,0.15$.
@@ -125,7 +136,7 @@ xgboost1，xgboost2, GBDT三份结果按0.47, 0.34, 0.19 比例融合。
 双11当天销量乘以双11销量修正模型得到的销量增量，11-12, 11-13由于为周六周日，有理由相信其销量与11-11(周五)的表现存在相似性， 因而乘以0.2及0.1倍的销量增量系数。
 
 
-##精简版的特征、模型与结果
+## 精简版的特征、模型与结果
 由测评获得的Loss提升表格如下，按特征的重要性排序，分别为：历史销量特征，节假日特征，降水天气特征，商家特征。
 
 |方案	|Loss|
@@ -146,7 +157,7 @@ xgboost1，xgboost2, GBDT三份结果按0.47, 0.34, 0.19 比例融合。
 
 
 
-##代码说明
+## 代码说明
 **Step1**：生成精简版本user_pay, user_view 表格
 
     data_new/table_regenerate.py
@@ -156,12 +167,12 @@ xgboost1，xgboost2, GBDT三份结果按0.47, 0.34, 0.19 比例融合。
 **Step2**：外部数据爬取
 
     additional/Weather_underground_day.py
-从https://www.wunderground.com按天读取机场所在地信息，爬取信息包含7列分别为[Port, Date, Precip , Rise_act, Rise_cil, Set_act, Set_cil]，对应内容为[机场代号，日期，降水量，真实日出时间，修正日出时间，真实日落时间，修正日落时间]。
+从 https://www.wunderground.com 按天读取机场所在地信息，爬取信息包含7列分别为[Port, Date, Precip , Rise_act, Rise_cil, Set_act, Set_cil]，对应内容为[机场代号，日期，降水量，真实日出时间，修正日出时间，真实日落时间，修正日落时间]。
 
 
     additional/Weather_underground_hour.py
 
-从https://www.wunderground.com按小时读取机场所在地信息，爬取信息包含14列分别为[Port, Date, Time, Temp, Bodytemp, Dew, Humidity, Pressure, Visibility, Wind_dir, Wind_speed, Gust_speed, Event, Condition]，对应内容为[机场代号，日期，时间，气温，体感温度，露点，湿度，压力，能见度，风向，风速，阵风强度，气象事件，气象条件]。
+从 https://www.wunderground.com 按小时读取机场所在地信息，爬取信息包含14列分别为[Port, Date, Time, Temp, Bodytemp, Dew, Humidity, Pressure, Visibility, Wind_dir, Wind_speed, Gust_speed, Event, Condition]，对应内容为[机场代号，日期，时间，气温，体感温度，露点，湿度，压力，能见度，风向，风速，阵风强度，气象事件，气象条件]。
 
 **Step3**：特征生成
 
@@ -206,10 +217,5 @@ GBDT模型，详见3.1
 
 
   [1]: http://static.zybuluo.com/Jessy923/8i1cq0e2zdrl90s4bsgto2i2/%E5%9B%BE%E7%89%873.png
-  [2]: http://static.zybuluo.com/Jessy923/ukcrtk5rvuqzvj7sg1qbblky/histGraphAll.gif
   [3]: http://baike.baidu.com/link?url=J2KE6H1F1P_qLZrwU6P9c6sxfVKFpG6ob6Vsk997EDBk8kxCyZuY3r8Tj0CEBXU74DyJ1r8M8N9jn6tvTN2GBAAqoJ7VMgbypwCBYx5x-YkQl-PjZgzYyE6hSE4ylTpfBZZ0tRlDU5NcrckI8KLkzjZcK7O430qi8Jf5I1mZPzW
-  [4]: http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png
-  [5]: http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png
-  [6]: http://static.zybuluo.com/Jessy923/w0w8yda1orkpiehi26veuikz/image_1bg3k1ncn1t37km5qiq19lm1brnm.png
-  [7]: http://static.zybuluo.com/Jessy923/wgciv2860j3z1pahbhf7jd59/image_1bg3k26oqng2is11dflrddpuo13.png
   [8]: http://static.zybuluo.com/Jessy923/bsw2bmxrm5xx4vmt3tu8pujr/pipeline.JPG
