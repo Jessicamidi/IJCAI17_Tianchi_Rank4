@@ -18,6 +18,7 @@ Yichen Yao, Department of Engineering Mechanics, Tsinghua University, yaoyichen@
 - Evaluation：
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/k6olhzfz2si5p3n57d5w306x/costF.png" width="650" height="150" alt="Item-based filtering" /></div>
  pit: predicted sales volume of merchant i on day t
+ 
  rit: true value
 
 
@@ -131,7 +132,7 @@ GBDT: the retention rate for the first round of training is 90%.
  - Features: only include merchant information, including average ratio of View and Pay, average opening and closing time, business hour, date of initial opening, non-holiday sales median, holiday sales median, holiday / non-holiday sales ratio; business category, per capita consumption, rating, comments, store grade
 Double 11 sales increase: the weighted sales ratio between the sales volume on Double 11 Day V1111 in the previous year (2015) and the corresponding days two weeks before and two weeks after Double 11 Day V1028, V1104, V1118, V1125. The weight coefficient were 0.15, 0.35, 0.35, 0.15.
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/5iyvh7olsr32dncmn49vuilo/eq2.png"/></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/5iyvh7olsr32dncmn49vuilo/eq2.png" width="480" height="75"/></div>
  
 -  Training methods: we use xgboost model for training. In order to prevent over-fitting, the parameter settings are more conservative, the maximum depth is 2, and a larger regular term is added. The main settings were as follows: max_depth = 2, learning_rate = 0.01, n_estimators = 500, reg_alpha = 10, gamma = 1
 
