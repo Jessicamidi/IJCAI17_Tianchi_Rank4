@@ -2,10 +2,10 @@
 <center> IJCAI17 口碑商家客流量预测赛 Flamingo队伍解题方案 </center>
 
 IJCAI17_Flamingo_Rank4
-李中杰，姚易辰
-清华大学热能系，清华大学工程力学系
 
-lizhongjie1989@163.com,  yaoyichen@aliyun.com
+李中杰，清华大学热能系，lizhongjie1989@163.com
+
+姚易辰，清华大学工程力学系, yaoyichen@aliyun.com
 
 
 
