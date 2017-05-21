@@ -17,9 +17,7 @@ Yichen Yao, Department of Engineering Mechanics, Tsinghua University, yaoyichen@
 - Goal: Koubei provided merchant data, user payment and browse log from 2000 merchants from 2015.07.01 to 2016.10.31. The contestants are supposed to predict the sales volume of each merchant in the next 14 days（2016.11.01-2016.11.14）.
 - Evaluation：
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/k6olhzfz2si5p3n57d5w306x/costF.png" width="650" height="150" alt="Item-based filtering" /></div>
- pit: predicted sales volume of merchant i on day t
- 
- rit: true value
+
 
 
 - Notes: The competition encourages data mining (e.g. the use of external data such as weather information).
