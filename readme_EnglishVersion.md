@@ -27,7 +27,7 @@ Yichen Yao, Department of Engineering Mechanics, Tsinghua University, yaoyichen@
 
 ## 2 Data Mining and Cleaning
 ### 2.1 Data Mining 
-The mining of external data includes weather and holiday information, stored in the folder “additional”, with detailed as follows:
+The mining of external data includes weather and holiday information, stored in the folder “additional”, with details as follows:
 ### 2.1.1 Weather data
 
  - Weather data are from：https://www.wunderground.com， 
