@@ -106,6 +106,7 @@ XGBoost-Round_2: log processing for daily sales volume, dimensionless by the med
 |:---:	|:---:	|:---: |:---:	|:---:|:---:|:---:|
 |Round_1|	reg:linear|	3|	0.1	|500	|0	|1|
 |Round_2	|reg:linear|	5|	0.03|	1600|	1|	0|
+
 GBDT: the retention rate for the first round of training is 90%.
 
 |GBDT|	loss|	max_depth|	learning_rate|	n_estimators|	alpha|
