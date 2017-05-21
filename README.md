@@ -17,7 +17,6 @@ IJCAI17_Flamingo_Rank4
 - 赛题目标：通过阿里支付宝口碑平台2000个商户从2015.07.01到2016.10.31的商家数据，用户在支付宝端的支付和浏览日志，预测商家在未来14天（2016.11.01-2016.11.14）的客户流量。
 - 测评函数：
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/k6olhzfz2si5p3n57d5w306x/costF.png" width="650" height="150" alt="Item-based filtering" /></div>
-其中pit为商家i在日期t销量预测值，rit为其真实值。
 
 - 本次比赛鼓励参赛选手使用外部数据，如天气数据等。
 
