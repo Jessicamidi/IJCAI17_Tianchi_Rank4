@@ -101,6 +101,7 @@ XGBoost-Round_2: 日销量仅作log处理后，采用过去三周的中位数作
 |:---:	|:---:	|:---: |:---:	|:---:|:---:|:---:|
 |Round_1|	reg:linear|	3|	0.1	|500	|0	|1|
 |Round_2	|reg:linear|	5|	0.03|	1600|	1|	0|
+
 GBDT: 第一次训练样本保留量为90%。
 
 |GBDT|	loss|	max_depth|	learning_rate|	n_estimators|	alpha|
