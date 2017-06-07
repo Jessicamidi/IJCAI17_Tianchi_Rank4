@@ -57,7 +57,7 @@ The data cleaning process includes three parts:  1. Cleaning by rules; 2. Cleani
 
 - The raw data contains large amount of purchase within a certain hour for a single user. For instance, the purchase volume of userID 9594359 in the January 30, 2016 in the shopID 878 reaches 209 times. For such situation, the following equation is adopted to eliminate the abnormal consumption.
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/zul8hn49vki6e1xh8w0mumcd/image_1bg3ktg7ob7s1ggq1omf1f098et9.png"/></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/cp2sq0mlab4sulvf0leyshqa/image.png"/></div>
 
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400"/></div>
 
