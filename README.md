@@ -52,7 +52,7 @@ SSD=(1.818t+18.18)(0.88+0.002f)+(t-32)/(45-t)-3.2v+18.2
 
 - 原始数据中，存在单用户某小时内大量购买的现象，如userID为9594359用户在2016年1月30日在shopID为878的商家累计购买了209次。针对此类现象，对于单个用户单小时内的购买数量x，采用以下公式处理消除异常消费：
 
-<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mln9y5tca2z4h8tvolb63ot7/image.png"/></div>
+<div  align="center"> <img src="http://static.zybuluo.com/Jessy923/cp2sq0mlab4sulvf0leyshqa/image.png"/></div>
 
 <div  align="center"> <img src="http://static.zybuluo.com/Jessy923/mb6ggftge0e5k9yfd3dmvewi/image_1bg3jvnk3d9gbik13fl196j1jb19.png" width="400" height="400"/></div>
 
