@@ -68,7 +68,7 @@ increase_list1_pd = pd.DataFrame(increase_list1,columns = ['increase1'])
 increase_list2_pd = pd.DataFrame(increase_list2,columns = ['increase2'])
 
 TEST_cor_candidate = pd.concat([TEST_cor_candidate,average_list_pd,increase_list1_pd,increase_list2_pd ], axis = 1)
-TEST_cor_candidate['7mean'] = TEST[np.arange(1,8)].mean(axis = 1)
+TEST_cor_candidate['7mean'] = TEST_cor_candidate[np.arange(1,8)].mean(axis = 1)
 TEST_cor_candidate = TEST_cor_candidate[np.abs(TEST_cor_candidate['increase1']/TEST_cor_candidate['7mean']) < 0.25]
 TEST_cor_candidate = TEST_cor_candidate[np.abs(TEST_cor_candidate['increase2']/TEST_cor_candidate['7mean']) < 0.25]
 TEST_cor_candidate['increase'] = (0.5* TEST_cor_candidate['increase2'] + 0.5 * TEST_cor_candidate['increase1'])*1.0
